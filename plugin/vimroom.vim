@@ -120,8 +120,8 @@ function! s:is_the_screen_wide_enough()
     return winwidth( winnr() ) >= s:minwidth
 endfunction
 
-function! s:sidebar_size()
-    return ( winwidth( winnr() ) - g:vimroom_width - 2 ) / 2
+function! s:sidebar_size(side)
+    return ( winwidth( winnr() ) - g:vimroom_width - 2 + a:side ) / 2
 endfunction
 
 function! <SID>VimroomToggle()
@@ -171,21 +171,22 @@ function! <SID>VimroomToggle()
     else
         if s:is_the_screen_wide_enough()
             let s:active = 1
-            let s:sidebar = s:sidebar_size()
             " Turn off status bar
             if s:save_laststatus != ""
                 setlocal laststatus=0
             endif
             if g:vimroom_min_sidebar_width
                 " Create the left sidebar
-                exec( "silent leftabove " . s:sidebar . "vsplit new" )
+                let s:left = s:sidebar_size(0)
+                let s:right = s:sidebar_size(1)
+                exec( "silent leftabove " . s:left . "vsplit new" )
                 setlocal noma
                 setlocal nocursorline
                 setlocal nonumber
                 silent! setlocal norelativenumber
                 wincmd l
                 " Create the right sidebar
-                exec( "silent rightbelow " . s:sidebar . "vsplit new" )
+                exec( "silent rightbelow " . s:right . "vsplit new" )
                 setlocal noma
                 setlocal nocursorline
                 setlocal nonumber
