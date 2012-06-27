@@ -98,18 +98,17 @@ function! Savestatus()
     let s:save_laststatus = &laststatus
   endif
 
-" Save the current 'colorcolumn' value for reset later
-let s:save_colorcolumn = ""
-if exists ( "&colorcolumn" )
+  " Save the current 'colorcolumn' value for reset later
+  let s:save_colorcolumn = ""
+  if exists ( "&colorcolumn" )
     let s:save_colorcolumn = &colorcolumn
-    set colorcolumn=""
-endif
+  endif
 
-" Save the current 'foldcolumn' value for reset later
-if exists( "&foldcolumn" )
+  " Save the current 'foldcolumn' value for reset later
+  let s:save_foldcolumn = 0
+  if exists( "&foldcolumn" )
     let s:save_foldcolumn = &foldcolumn
-    set foldcolumn=0
-endif
+  endif
 
   " Save the current `textwidth` value for reset later
   let s:save_textwidth = ""
